@@ -15,8 +15,6 @@ mount_array(){
                         echo "New mount point has been added ~/mnt/$DIR"
                         mkdir -p ~/mnt/$DIR
                         sshfs root@$IP:/ ~/mnt/$DIR 
-#fusermount -u ~/mnt/$DIR    
-#rm -fr ~/mnt/$DIR
                     else
                         Nothing=$item
                     fi
