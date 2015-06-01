@@ -5,6 +5,7 @@ import subprocess
 import shlex
 import sys
 import time
+import glob
 
 #output example
 #07:28:44 root@BR-H1002-spa spa:~> ps -A | grep safe
@@ -28,6 +29,14 @@ def is_iscsiport_ready():
 	else:
 		return 0
 		
+def is_fw_dump_moved():
+	print "check the fw dump file has been moved to backend..."
+	return not os.path.exists("/opt/QLogic_Corporation")
+
+
+def is_safe_dump_moved():
+	print "check if the safe dump has been moved to backed..."
+	return not os.path.exists(glob.glob('/cores/safe_dump*')[0])
 
 PROCNAME = "safe"
 command_line = 'ps -A | grep ' + PROCNAME
@@ -38,7 +47,7 @@ while True:
 	if out:
 		print "safe is ready, wait for the up of the iscsi port..." 
 		while True:
-			if is_iscsiport_ready():
+			if is_iscsiport_ready() and is_fw_dump_moved() and is_safe_dump_moved():
 				break
 			print "iscsiport is not ready"
 			time.sleep(10)
