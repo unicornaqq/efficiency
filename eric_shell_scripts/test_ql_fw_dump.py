@@ -44,7 +44,7 @@ while True:
 			time.sleep(10)
 		# The iscsi port is ready for the ql FW dump now
 		os.system("/EMC/Platform/bin/svc_rescue_state -c")
-		os.system("/EMC/C4Core/tools/livedebug.pl -c safe")
+		os.system("/root/livedebug.pl -c safe")
 		break
 	else:	
 		print "safe is not ready..."
