@@ -31,12 +31,15 @@ def is_iscsiport_ready():
 		
 def is_fw_dump_moved():
 	print "check the fw dump file has been moved to backend..."
-	return not os.path.exists("/opt/QLogic_Corporation")
+	#return not os.path.exists("/opt/QLogic_Corporation")
+	dump_files = glob.glob('/opt/QLogic_Corporation/*/*')
+	return not dump_files
 
 
 def is_safe_dump_moved():
 	print "check if the safe dump has been moved to backed..."
-	return not os.path.exists(glob.glob('/cores/safe_dump*')[0])
+	dump_files = glob.glob('/cores/safe_dump*')
+	return not dump_files
 
 PROCNAME = "safe"
 command_line = 'ps -A | grep ' + PROCNAME
